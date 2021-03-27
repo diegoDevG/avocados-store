@@ -7,7 +7,7 @@ async function getData() {
     const { data } = await response.json()
     const items = []
 
-    //handle currencie
+    //handle currency
     const formatPrice = (price) => {
         const newPrice = new window.Intl.NumberFormat('en-US', {
             style: 'currency',
@@ -18,6 +18,7 @@ async function getData() {
     }
 
     data.forEach(item => {
+        const { image, name, price } = item
         const itemContaier = document.createElement('div')
         const imageNode = document.createElement('img')
         const titleNode = document.createElement('h2')
@@ -29,9 +30,10 @@ async function getData() {
         imageNode.className = 'w-40 rounded-full'
         priceNode.classList = 'text-yellow-300'
 
-        imageNode.src = `${baseUrl}${item.image}`
-        titleNode.textContent = item.name
-        priceNode.textContent = `${formatPrice(item.price)} USD`
+        imageNode.src = `${baseUrl}${image}`
+        imageNode.alt = name
+        titleNode.textContent = name
+        priceNode.textContent = `${formatPrice(price)} USD`
         itemContaier.append(imageNode, titleNode, priceNode)
         items.push(itemContaier)
     });
